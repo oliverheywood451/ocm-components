@@ -1,0 +1,21 @@
+{
+  "name": "ocm-components",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^8.2.0",
+    "@angular/core": "^8.2.0"
+  },
+  "main": "bundles/ocm-components.umd.js",
+  "module": "fesm5/ocm-components.js",
+  "es2015": "fesm2015/ocm-components.js",
+  "esm5": "esm5/ocm-components.js",
+  "esm2015": "esm2015/ocm-components.js",
+  "fesm5": "fesm5/ocm-components.js",
+  "fesm2015": "fesm2015/ocm-components.js",
+  "typings": "ocm-components.d.ts",
+  "metadata": "ocm-components.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}
