@@ -1,6 +1,18 @@
 {
   "name": "ocm-components",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "main": "dist/bundles/ocm-components.umd.js",
+  "module": "dist/fesm5/ocm-components.js",
+  "es2015": "dist/fesm2015/ocm-components.js",
+  "esm5": "dist/esm5/ocm-components.js",
+  "esm2015": "dist/esm2015/ocm-components.js",
+  "fesm5": "dist/fesm5/ocm-components.js",
+  "fesm2015": "dist/fesm2015/ocm-components.js",
+  "typings": "dist/ocm-components.d.ts",
+  "metadata": "dist/ocm-components.metadata.json",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
