@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ocm-components": {
+      "projectType": "library",
+      "root": "projects/ocm-components",
+      "sourceRoot": "projects/ocm-components/lib",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ocm-components/tsconfig.lib.json",
+            "project": "projects/ocm-components/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ocm-components/lib/test.ts",
+            "tsConfig": "projects/ocm-components/tsconfig.spec.json",
+            "karmaConfig": "projects/ocm-components/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ocm-components/tsconfig.lib.json",
+              "projects/ocm-components/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "defaultProject": "ocm-components"
+}

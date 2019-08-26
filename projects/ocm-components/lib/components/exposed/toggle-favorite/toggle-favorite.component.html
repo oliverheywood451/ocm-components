@@ -1,0 +1,4 @@
+<fa-icon [ngClass]="{ 'text-danger': favorite }"
+         [icon]="favorite ? faHeartFilled : faHeartOutline"
+         (click)="favoriteChanged.emit(!favorite)"
+         style="cursor: pointer;"></fa-icon>

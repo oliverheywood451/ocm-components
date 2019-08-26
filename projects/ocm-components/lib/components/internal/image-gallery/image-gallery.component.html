@@ -1,0 +1,34 @@
+<div class="bg-light">
+  <div>
+    <ngx-image-zoom class="img-fluid mx-auto d-block pt-2 px-2"
+                    appFallbackImage
+                    [thumbImage]="imgUrls && imgUrls[selectedIndex] ? imgUrls[selectedIndex] : 'http://placehold.it/500x500'"
+                    [fullImage]="imgUrls && imgUrls[selectedIndex] ? imgUrls[selectedIndex] : []"
+                    [zoomMode]="'hover'"
+                    [enableScrollZoom]="true"
+                    [enableLens]="true"
+                    [lensWidth]="250"
+                    [lensHeight]="250"
+                    [circularLens]="true"
+                    [magnification]="2"></ngx-image-zoom>
+  </div>
+  <div>
+    <div class="gallery-container row"
+         *ngIf="imgUrls.length > 1">
+      <div class="col carousel-arrow"
+           (click)="backward()">
+        <fa-icon [icon]="faAngleLeft"></fa-icon>
+      </div>
+      <div class="col gallery-item"
+           [ngClass]="{'active' : isSelected(url) }"
+           *ngFor="let url of  getGallery()"
+           (click)="select(url)">
+        <img [src]="url">
+      </div>
+      <div class="col carousel-arrow"
+           (click)="forward()">
+        <fa-icon [icon]="faAngleRight"></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>

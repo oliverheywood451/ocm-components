@@ -1,0 +1,81 @@
+<div class="card border shadow-sm mb-4">
+  <div class="card-header p-3">
+    <div class="row">
+      <div class="col">
+        <h5 class="card-title mb-0">
+          Line Items
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="px-3 pt-2 d-none d-sm-block border-bottom">
+    <div class="row">
+      <div class="col-sm-7">
+      </div>
+      <div class="col-sm-5">
+        <div class="row">
+          <div class="col-4 text-center">
+            <h6>Price</h6>
+          </div>
+          <div class="col-4 text-center">
+            <h6>Qty</h6>
+          </div>
+          <div class="col-4 text-center">
+            <h6>Total</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a (click)="log(lineItems)">click</a>
+  <div class="flex-none">
+    {{ lineItems.Items.length }}
+    <div *ngFor="let li of lineItems.Items; let i = index">
+      {{i}}
+      <div class="m-2 row align-items-center">
+        <div class="col-sm-7">
+          <div class="row align-items-sm-center">
+            <div class="col-3 p-0">
+              <img class="img-thumbnail"
+                   appFallbackImage
+                   [src]="getImageUrl(li.ID)">
+            </div>
+            <div class="col-9">
+              <h6>
+                <a (click)="navigateToProductDetails.emit({ productID: li.Product.ID })"
+                   class="text-primary link">{{li.Product.Name}}</a>
+                <small class="text-muted d-block">{{li.Product.ID}}</small>
+              </h6>
+              <a class="text-danger btn btn-link px-0 link"
+                 *ngIf="!readOnly"
+                 (click)="removeLineItem(li.ID)">Remove Item</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="row align-items-center pt-3 pt-sm-0">
+            <div class="col-4 text-center">
+              <span class="d-block d-sm-none">Unit Price</span>
+              <span class="text-nowrap">{{li.UnitPrice | currency}}</span>
+            </div>
+            <div class="col-4 text-center">
+              <span class="d-block d-sm-none">Qty</span>
+              <ocm-quantity-input *ngIf="!readOnly"
+                                  [limits]="quantityLimits[i]"
+                                  [existingQty]="li.Quantity"
+                                  (qtyChange)="changeQuantity(li.ID, $event.detail)"></ocm-quantity-input>
+              <span class="text-nowrap"
+                    *ngIf="readOnly">&times;{{ li.Quantity | number }}</span>
+            </div>
+            <div class="col-4 text-right">
+              <span class="d-block d-sm-none">Total</span>
+              <span class="text-nowrap">{{ li.LineTotal | currency }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- hr only visible on mobile to more clearly distinguish between line items -->
+      <hr class="pb-4 d-block d-sm-none">
+    </div>
+  </div>
+</div>
