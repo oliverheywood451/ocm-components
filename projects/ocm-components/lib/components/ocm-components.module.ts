@@ -59,7 +59,7 @@ export class OcmComponentsModule {
     this.buildWebComponent(OCMSpecForm, 'ocm-spec-form');
     this.buildWebComponent(OCMOrderSummary, 'ocm-order-summary');
     this.buildWebComponent(OCMLineitemTable, 'ocm-lineitem-table');
-    //this.buildWebComponent(OCMCart, 'ocm-cart');
+    this.buildWebComponent(OCMCart, 'ocm-cart');
   }
 
   buildWebComponent(angularComponent, htmlTagName: string) {
