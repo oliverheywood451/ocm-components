@@ -9,7 +9,6 @@
     "dist/models",
     "dist/node_modules",
     "dist/ocm-components.d.ts",
-    "dist/package.json",
     "dist/public-api.d.ts"
   ],
   "scripts": {
