@@ -20,12 +20,6 @@ export class OCMLineitemTable {
 
   constructor() {}
 
-  log(object: any) {
-    debugger;
-    console.log(object);
-    console.log(this.lineItems);
-  }
-
   removeLineItem(lineItemID: string) {
     this.deleteLineItem.emit({ lineItemID });
   }
