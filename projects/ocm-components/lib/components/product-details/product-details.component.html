@@ -1,0 +1,59 @@
+<div class="container mt-4"
+     *ngIf="product">
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <div class="position-relative d-block">
+        <ocm-image-gallery [imgUrls]="imageUrls"
+                           [context]="context"></ocm-image-gallery>
+      </div>
+    </div>
+    <div class="col-md-6 bg-light">
+      <h1 class="h1 my-0">{{ product.Name }}</h1>
+      <div class="d-flex mt-2">
+        <div class="mt-2 text-muted">ID: {{ product.ID }}</div>
+        <div class="mt-2 ml-3">
+          <ocm-toggle-favorite title="Favorite"
+                               (click)="$event.stopPropagation()"
+                               [favorite]="isFavorite()"
+                               (favoriteChanged)="setIsFavorite($event.detail)">
+          </ocm-toggle-favorite>
+        </div>
+        <div class="ml-auto"
+             *ngIf="isOrderable">
+          <ocm-quantity-input class="d-inline-block"
+                              style="max-width: 100px"
+                              [limits]="quantityLimits"
+                              (qtyChange)="quantity = $event.detail"
+                              [context]="context">
+          </ocm-quantity-input>
+          <button class="btn btn-primary ml-2"
+                  type="submit"
+                  (click)="addToCart()">
+            Add to Cart
+            <span class="badge badge-light ml-2">{{
+              getTotalPrice() | currency
+            }}</span>
+          </button>
+        </div>
+      </div>
+      <hr />
+      <p class="mt-4"
+         [innerHTML]="product.Description || 'This product has no description.'"></p>
+      <ocm-spec-form *ngIf="isOrderable && specs.Items.length > 0"
+                     [specs]="specs.Items"
+                     (formUpdated)="specSelections = $event.detail"
+                     [context]="context"></ocm-spec-form>
+      <div *ngIf="!isOrderable"
+           class="alert alert-info">
+        This is a view-only product and cannot be ordered
+      </div>
+    </div>
+  </div>
+  <div *ngIf="relatedProducts$ | async; let relatedProducts">
+    <ocm-product-carousel *ngIf="relatedProducts.length > 0"
+                          displayTitle="Related Products"
+                          [products]="relatedProducts"
+                          [context]="context">
+    </ocm-product-carousel>
+  </div>
+</div>

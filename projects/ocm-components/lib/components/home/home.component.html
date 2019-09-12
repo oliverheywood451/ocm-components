@@ -1,0 +1,30 @@
+<div class="container">
+  <div *ngIf="annoucement"
+       class="alert alert-info my-3"><b>
+      <fa-icon class="pr-3"
+               [icon]="faBullhorn"></fa-icon>
+    </b>{{ annoucement }}
+  </div>
+  <ngb-carousel *ngIf="carouselSlides"
+                [wrap]="true"
+                [interval]="5000">
+    <ng-template ngbSlide
+                 *ngFor="let slide of carouselSlides">
+      <img class="img-fluid"
+           style="width:100%;"
+           [src]="slide.URL"
+           alt="Random first slide">
+      <div class="carousel-caption">
+        <h3>{{ slide.headerText }}</h3>
+        <p>{{ slide.bodyText }}</p>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+  <!-- Featured products can be managed in the seller application -->
+  <ocm-product-carousel *ngIf="featuredProducts?.length"
+                        [displayTitle]="'Featured Products'"
+                        [products]="featuredProducts"
+                        [quantityLimits]="quantityLimits"
+                        [context]="context">
+  </ocm-product-carousel>
+</div>

@@ -1,0 +1,117 @@
+<section class="container mt-2">
+  <div class="row">
+    <div class="col-12">
+      <nav class="breadcrumb"
+           aria-label="breadcrumb">
+        <a class="breadcrumb-item link text-primary"
+           (click)="clearAllFilters()">All Products</a>
+        <a *ngFor="let category of categoryCrumbs"
+           class="breadcrumb-item link text-primary"
+           (click)="setActiveCategory(category.ID)">
+          {{ category.Name }}
+        </a>
+      </nav>
+    </div>
+  </div>
+  <!-- Mobile section for selecting a category and filtering on favorites -->
+  <div class="d-md-none mb-2">
+    <button class="btn btn-block btn-default btn-outline-dark mb-2"
+            *ngIf="categories?.Items?.length"
+            (click)="openCategoryModal()">
+      Select Category
+    </button>
+    <div class="col-xs-6">
+      <div (click)="toggleFilterByFavorites()">
+        <label>Refine By</label>
+        <button class="btn btn-block btn-default btn-outline-dark mb-2"
+                for="favorite">
+          <ocm-toggle-favorite [favorite]="showingFavoritesOnly"></ocm-toggle-favorite>
+          My Favorites
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-lg-3 d-md-block d-sm-none d-none">
+      <div class="card mb-4">
+        <div class="card-header p-3">
+          <h5 class="card-title mb-0">
+            <strong>Refine By</strong>
+          </h5>
+        </div>
+        <div class="p-3">
+          <ocm-product-facet-list *ngIf="products?.Meta?.Facets?.length"
+                                  [facetList]="products.Meta.Facets"
+                                  [context]="context">
+          </ocm-product-facet-list>
+          <div (click)="toggleFilterByFavorites()">
+            <span class="sr-only">Sort By Favorites</span>
+            <ocm-toggle-favorite [favorite]="showingFavoritesOnly"></ocm-toggle-favorite>
+            <label class="ml-2"
+                   for="favorite"> My Favorites</label>
+          </div>
+        </div>
+      </div>
+      <ocm-category-tree *ngIf="categories?.Items?.length"
+                         [categories]="categories"
+                         [context]="context">
+      </ocm-category-tree>
+    </div>
+    <div class="col-lg-9 col-md-8 ">
+      <div class="row flex-wrap-reverse">
+        <div class="col-12 col-md-auto mr-auto ">
+          <div class="m-0 mt-1 text-center">
+            <span *ngIf="products && products.Meta.TotalPages > 1">
+              {{ (products.Meta.Page - 1) * products.Meta.PageSize + 1 }}
+              - {{ products.Meta.Page * products.Meta.PageSize }} of
+            </span>
+            {{ products?.Meta.TotalCount }} results
+          </div>
+        </div>
+        <div class="col-12 d-md-none mb-2">
+          <button *ngIf="hasQueryParams"
+                  class="btn btn-block btn-default btn-outline-dark mb-2"
+                  type="button"
+                  (click)="clearAllFilters()">
+            Clear All Filters
+          </button>
+        </div>
+        <div class="col-12 col-md-auto ">
+          <ocm-product-sort [context]="context"></ocm-product-sort>
+        </div>
+      </div>
+      <div class="card"
+           *ngIf="products && products.Items.length === 0">
+        <shared-no-results message="No products found."
+                           actionText="clear search criteria"
+                           (action)="clearAllFilters()">
+        </shared-no-results>
+      </div>
+      <div *ngIf="products && products.Items.length > 0">
+        <div class="product-list-grid row align-items-stretch">
+          <ocm-product-card *ngFor="let product of products.Items; let i = index"
+                            class="col-sm-6 col-md-4 col-xl-3 d-flex"
+                            [product]="product"
+                            [quantityLimits]="quantityLimits[i]"
+                            [context]="context">
+          </ocm-product-card>
+        </div>
+        <ngb-pagination *ngIf="products && products.Meta.TotalPages > 1"
+                        maxSize="10"
+                        class="d-flex justify-content-center"
+                        [collectionSize]="products.Meta.TotalCount"
+                        [pageSize]="products.Meta.PageSize"
+                        [(page)]="products.Meta.Page"
+                        (pageChange)="changePage($event)"
+                        [rotate]="true">
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>
+  <!-- Worry About Modals Later -->
+  <!-- <shared-modal id="{{ categoryModalID }}"
+                modalTitle="Select Category">
+    <ocm-category-tree *ngIf="categories?.Items?.length"
+                       [context]="context"></ocm-category-tree>
+  </shared-modal> -->
+</section>
