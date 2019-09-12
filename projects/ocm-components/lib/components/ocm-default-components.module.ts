@@ -73,7 +73,7 @@ import { OCMProductList } from './product-list/product-list.component';
     NgbPaginationModule,
   ],
 })
-export class OcmDefaultComponentsModule {
+export class OcmComponentsModule {
   constructor(private injector: Injector) {
     this.buildWebComponent(OCMQuantityInput, 'ocm-quantity-input');
     this.buildWebComponent(OCMProductCard, 'ocm-product-card');
